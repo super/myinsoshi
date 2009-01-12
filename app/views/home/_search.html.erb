@@ -1,0 +1,17 @@
+<div class="col2">  <h2>Search People</h2>
+  <form action="/searches" id="frmSearch" method="get">
+    <fieldset title="Search Insoshi">
+      <input class="txt" id="txtSearch" maxlength="50" name="q" type="text" value="" />
+      <input class="button" id="btnSearch" type="submit" value="Search" />
+      <input id="model" name="model" type="hidden" value="Person" />
+    </fieldset>
+  </form>
+  <% if !is_logged_in? %>
+    <h2>Join
+      the site
+    </h2>
+    <div style="text-align: center;">
+      <a href="/signup"><img alt="Button_signup" src="/images/button_signup.png?1231577647" /></a>
+    </div>
+  <% end  %>
+</div>

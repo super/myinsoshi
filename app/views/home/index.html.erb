@@ -1,0 +1,25 @@
+<%if is_logged_in?%>
+  <%= render :partial => 'loginheader'%>
+<% end %>
+<div id="wrap">
+  <div id="content">
+    <% if flash[:notice] %>
+      <p class="flash notice"><%= flash[:notice] %></p>
+    <% end %>
+    <div class="col1"> 
+      <h2>Activity Feed</h2> 
+      <ul class="list activity full">
+        <% @topics.each do |topic|%>
+          <li>
+          <p class="activity_detail">
+          <img alt="User_edit" class="icon" src="/images/icons/user_edit.png?1231577647" />
+          <%= link_to topic.user.username %>&nbsp;&nbsp;<%= time_ago_in_words(topic.created_at) %> 
+          <p class="meta">Created <%= topic.title %></p>
+          </p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <%= render :partial => 'search'%>
+  </div>
+</div>

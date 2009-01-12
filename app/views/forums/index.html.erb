@@ -1,0 +1,71 @@
+<div id="header-wrap">
+  <div id="header">
+    <h1><a href="http://localhost:3001/" title="Homepage"><img alt="Logo-insoshi" src="/images/logo-insoshi.png?1231577647" /></a></h1>
+    <ul id="nav">
+      <li class="n-dashboard"><%= link_to 'Dashboard', home_path %></li>
+      <li class="n-profile"><%= link_to 'Profile',user_path(logged_in_user) %></li>
+      <li class="n-messages"><%= link_to 'Messages' %></li>
+      <li class="n-people"><%= link_to 'People' %></li>
+      <li class="n-forum active"><%= link_to 'Forum', forums_path %></li>
+    </ul> 
+    <p class="welcome">
+    Welcome, <%= logged_in_user.username%>!
+    (<%= link_to '登出', logout_path %>)
+    </p>
+  </div>
+</div>
+<div id="wrap">
+  <div id="content">
+    <div class="col1">
+      <h2>Discussion topics</h2>
+      <% @topics.each do |topic|%>
+        <ol class="list forum full">
+          <li>
+          <%=link_to topic.title %>
+          <span class="meta">(<%=topic.posts_count %> posts )</span>
+          <p class="meta">
+          Started by <%= link_to topic.user.username %>
+          <%= time_ago_in_words(topic.created_at)%>
+          </p>
+          </li>
+        </ol>
+      <% end %>
+      <h2>New Topic</h2>
+      <% form_for :topic,:url => forum_topics_path(:forum_id => @forum) do |f|%>
+        <div style="margin:0;padding:0">
+         <!-- <input name="authenticity_token" type="hidden" value="7fec12bd52321d4eb80e122292ba71950a49886c" />
+         -->
+       </div>
+        <div class="form_row">
+          <label for="topic_name">标题</label>
+          <%= f.text_field :title, :class => 'input' %>
+          <%= submit_tag 'Go', :class => 'button'%>
+        </div>
+      <% end %>
+    </div>
+    <div class="col2">  <h2>Search Forums</h2>
+      <form action="/searches" id="frmSearch" method="get">
+        <fieldset title="Search Insoshi">
+          <input class="txt" id="txtSearch" maxlength="50" name="q" type="text" value="" />
+          <input class="button" id="btnSearch" type="submit" value="Search" />
+          <input id="model" name="model" type="hidden" value="ForumPost" />
+        </fieldset>
+      </form>
+      <div class="minifeed">
+        <h2>Minifeed</h2>
+        <ul class="list activity small">
+          <li>
+          <div class="profile-image">
+            <a href="/people/5-aaaaa" title="aaaaa"><img alt="aaaaa" src="/images/default_icon.png?1231577647" title="aaaaa" /></a>
+          </div>
+          <p><a href="/people/5-aaaaa">aaaaa</a> commented on 
+          <a href="/people/5-aaaaa#tWall">aaaaa's wall</a>.</p>
+          <p class="meta published">
+          37 minutes ago
+          </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

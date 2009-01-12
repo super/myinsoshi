@@ -1,0 +1,33 @@
+<div id="header-wrap">
+  <div id="header">
+    <h1><a href="http://localhost:3001/" title="Homepage"><img alt="Logo-insoshi" src="/images/logo-insoshi.png?1231577647" /></a></h1>
+    <ul id="nav">
+      <li class="n-dashboard"><%= link_to 'Dashboard', home_path %></li>
+      <li class="n-profile"><%= link_to 'Profile',user_path(logged_in_user) %></li>
+      <li class="n-messages"><%= link_to 'Messages' %></li>
+      <li class="n-people"><%= link_to 'People' %></li>
+      <li class="n-forum"><%= link_to 'Forum',forums_path %></li>
+    </ul> 
+    <p class="welcome">
+    Welcome, <%= logged_in_user.username%>!
+    (<%= link_to '登出', logout_path %>)
+    </p>
+  </div>
+</div>
+<div id="wrap">
+  <div id="content">
+    <h2>Edit post</h2>
+    <% form_for :post, :url => forum_topic_post_path, :html => { :method => :put } do |f|%>
+      <div style="margin:0;padding:0">
+        <input name="_method" type="hidden" value="put" />
+        <input name="authenticity_token" type="hidden" value="20d916fc11782d032fa4eeada54db9815720d013" />
+      </div>
+      <div class="form_row">
+        <%= f.text_area :content, :rows => 20, :cols => 40 %>
+      </div>
+      <div class="form_row">
+        <%= submit_tag '提交', :class => 'button'%>
+      </div>
+    <% end%>
+  </div>
+</div>

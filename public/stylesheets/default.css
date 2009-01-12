@@ -1,0 +1,2013 @@
+@import url(reset.css);
+@import url(typography.css);
+@import url(skin.css);
+
+#facebox .b {
+  background:url(/images/facebox/b.png);
+}
+
+#facebox .tl {
+  background:url(/images/facebox/tl.png);
+}
+
+#facebox .tr {
+  background:url(/images/facebox/tr.png);
+}
+
+#facebox .bl {
+  background:url(/images/facebox/bl.png);
+}
+
+#facebox .br {
+  background:url(/images/facebox/br.png);
+}
+
+#facebox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  text-align: left;
+}
+
+#facebox .popup {
+  position: relative;
+}
+
+#facebox table {
+  border-collapse: collapse;
+}
+
+#facebox td {
+  border-bottom: 0;
+  padding: 0;
+}
+
+#facebox .body {
+  padding: 10px;
+  background: #fff;
+  width: 370px;
+}
+
+#facebox .loading {
+  text-align: center;
+}
+
+#facebox .image {
+  text-align: center;
+}
+
+#facebox img {
+  border: 0;
+  margin: 0;
+}
+
+#facebox .footer {
+  border-top: 1px solid #DDDDDD;
+  padding-top: 5px;
+  margin-top: 10px;
+  text-align: right;
+}
+
+#facebox .tl, #facebox .tr, #facebox .bl, #facebox .br {
+  height: 10px;
+  width: 10px;
+  overflow: hidden;
+  padding: 0;
+}
+
+#facebox_overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height:100%;
+  width:100%;
+}
+
+.facebox_hide {
+  z-index:-100;
+}
+
+.facebox_overlayBG {
+  background-color: #000;
+  z-index: 99;
+}
+
+* html #facebox_overlay { /* ie6 hack */
+  position: absolute;
+  height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	border: 1px solid #111;
+	background-color: #eee;
+	padding: 5px;
+	opacity: 1;
+}
+#tooltip h3, #tooltip div { margin: 0; }/* Caution! Ensure accessibility in print and other media types... */
+@media projection, screen { /* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
+    .ui-tabs-hide {
+        display: none;
+    }
+}
+
+/* Hide useless elements in print layouts... */
+@media print {
+    .ui-tabs-nav {
+        display: none;
+    }
+}
+
+/* Skin */
+.ui-tabs-nav, .ui-tabs-panel {
+    font-family: "Trebuchet MS", Trebuchet, Verdana, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+.ui-tabs-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 3px;
+}
+.ui-tabs-nav:after { /* clearing without presentational markup, IE gets extra treatment */
+    display: block;
+    clear: both;
+    content: " ";
+}
+.ui-tabs-nav li {
+    float: left;
+    margin: 0 0 0 2px;
+    font-weight: bold;
+}
+.ui-tabs-nav a, .ui-tabs-nav a span {
+    float: left; /* fixes dir=ltr problem and other quirks IE */
+    padding: 0 12px;
+    background: url(/images/tabs-blue.png) no-repeat;
+}
+.ui-tabs-nav a {
+    margin: 5px 0 0; /* position: relative makes opacity fail for disabled tab in IE */
+    padding-left: 0;
+    background-position: 100% 0;
+    text-decoration: none;
+    white-space: nowrap; /* @ IE 6 */
+    outline: 0; /* @ Firefox, prevent dotted border after click */    
+}
+.ui-tabs-nav a:link, .ui-tabs-nav a:visited {
+    color: #fff;
+}
+.ui-tabs-nav .ui-tabs-selected a {
+    position: relative;
+    top: 1px;
+    z-index: 2;
+    margin-top: 0;
+    background-position: 100% -23px;
+}
+.ui-tabs-nav a span {
+    padding-top: 1px;
+    padding-right: 0;
+    height: 20px;
+    background-position: 0 0;
+    line-height: 20px;
+}
+.ui-tabs-nav .ui-tabs-selected a span {
+    padding-top: 0;
+    height: 27px;
+    background-position: 0 -23px;
+    line-height: 27px;
+}
+.ui-tabs-nav .ui-tabs-selected a:link, .ui-tabs-nav .ui-tabs-selected a:visited,
+.ui-tabs-nav .ui-tabs-disabled a:link, .ui-tabs-nav .ui-tabs-disabled a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
+    cursor: text;
+}
+.ui-tabs-nav a:hover, .ui-tabs-nav a:focus, .ui-tabs-nav a:active,
+.ui-tabs-nav .ui-tabs-unselect a:hover, .ui-tabs-nav .ui-tabs-unselect a:focus, .ui-tabs-nav .ui-tabs-unselect a:active { /* @ Opera, we need to be explicit again here now... */
+    cursor: pointer;
+}
+.ui-tabs-disabled {
+    opacity: .4;
+    filter: alpha(opacity=40);
+}
+.ui-tabs-nav .ui-tabs-disabled a:link, .ui-tabs-nav .ui-tabs-disabled a:visited {
+    color: #000;
+}
+.ui-tabs-panel {
+    padding: 10px;
+    background: #fff; /* declare background color for container to avoid distorted fonts in IE while fading */
+}
+/*.ui-tabs-loading em {
+    padding: 0 0 0 20px;
+    background: url(loading.gif) no-repeat 0 50%;
+}*/
+
+/* Additional IE specific bug fixes... */
+* html .ui-tabs-nav { /* auto clear @ IE 6 & IE 7 Quirks Mode */
+    display: inline-block;
+}
+*:first-child+html .ui-tabs-nav  { /* auto clear @ IE 7 Standards Mode - do not group selectors, otherwise IE 6 will ignore complete rule (because of the unknown + combinator)... */
+    display: inline-block;
+}
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;}
+
+/* Main layout */
+
+body {
+  text-align: center;
+}
+#header-wrap {
+  /* background: #069; */
+  background: #069 url('/images/header_background.png');
+  float: left;
+  width: 100%;
+}
+#header, #wrap, #footer {
+  margin: 0 auto;
+  text-align: left;
+  width: 744px;
+}
+#content {
+  width: 744px;
+  float: left;
+}
+.col1 {
+  float: left;
+  width: 490px;
+}
+.col2 {
+  float: right;
+  width: 240px;
+}
+.single-col .col1 {
+  margin: 0 210px;
+  width: 324px;
+}
+
+/* columns inside a tabbed panel */
+/* they need to be narrower because of the space consumed by the tabs 
+   interface */
+#tabCol .col1 {
+  float: left;
+  width: 60%;
+  padding-right: 10px;  
+}
+#tabCol .col2 {
+  float: right;
+  width: 35%;
+  margin-left: 20px;  
+}
+/* Header */
+#header {
+  position: relative;
+  height: 80px;
+}
+
+#header h1 {
+  float: left;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  width: 144px;
+}
+
+
+/* Header-nav */
+#nav {
+  margin: 44px 0 0 0;
+  width: 560px;
+  float: right;
+}
+#nav li {
+  background: #069 url(/images/header-grad.jpg) bottom repeat-x;
+  float: left;
+  height: 36px;
+  line-height: 36px;
+  list-style-type: none;
+  margin: 0 0 0 0;
+  padding: 0;
+  text-align: center;
+  width: 70px;
+}
+#nav li a {
+  color: #fff;
+  display: block;
+  height: 36px;
+  font-size: 12px;
+}
+#nav li a:hover {
+  background: url(/images/header-grad-inv.jpg) top repeat-x;
+}
+#nav li.active a, #nav li.active a:hover {
+  background: #fff;
+  color: #069;
+}
+#nav li.n-home {
+  margin-left: 0;
+}
+
+
+/* footer */
+#footer {
+  clear: both;
+  margin-top: 48px;
+  padding: 24px 0;
+  width: 744px;
+  
+}
+
+#footer-nav {
+  border-top: 1px solid #ccc;
+  padding-top: 24px;
+}
+
+/* Welcome message */
+p.welcome {
+  position: absolute;
+  right: 0;
+  text-align: right;
+  top: 12px;
+}
+
+
+
+/* Site elements */
+
+/* List */
+.list {
+  margin-right: 6px;
+}
+.list li {
+  border-bottom: 1px solid #eee;
+  background: none;
+  clear: both;
+  display: inline;
+  float: left;
+  list-style: none;
+  margin: 0 0 12px 6px;
+  padding: 0 0 6px 0;
+  width: 100%;
+}
+.list li.last {
+  border-bottom: none;
+}
+.list .profile-image {
+  clear: left;
+  float: left;
+  display: inline;
+}
+.list.full .profile-image {
+  float: left;
+  /* overflow: hidden; this hides the activity icon when no member thumbnail */
+  position: relative;
+  width: 102px;
+}
+.list.small .profile-image {
+  position: relative;
+  width: 60px;
+}
+.list.small li {
+  display: block;
+}
+.list p {
+  margin-bottom: 0;
+  margin-left: 102px;
+}
+
+.activity p {
+  margin-left: 1em;
+}
+
+.list .forum p {
+  margin-bottom: 1em;
+  
+}
+.list.small p {
+  font-size: 12px;
+  margin-left: 60px;
+}
+.list.full .profile-image img {
+  border: 1px solid #fff;
+}
+.list .profile-image img.icon {
+  position: absolute;
+  right: 3px;
+  top: 0;
+}
+
+.blog p {
+  margin-left: 0;
+  margin-bottom: 1em;
+}
+.list li ul {
+  margin-bottom: 2em;
+}
+.list li ul li {
+  background: url(/images/bullet.png) top left no-repeat;
+  border: 0;
+  margin: 0 0 .5em 0;
+  padding-left: 24px;
+}
+
+.list li li.reply {
+  border-top: 1px solid #eee;
+  border-bottom: 0;
+  margin-left: 84px;
+  margin-top: 12px;
+  padding: 12px 0 0;
+  width: 398px;
+}
+
+/* Grid */
+.grid {
+  clear: both;
+  float: left;
+  width: 100%;
+}
+.grid li {
+  background: none;
+  display: inline;
+  float: left;
+  list-style-type: none;
+  padding: 0;
+}
+.col2 .contacts.grid li {
+  height: 36px;
+  margin: 0 0 6px 6px;
+  overflow: hidden;
+  width: 36px;
+}
+.col2 .contacts li.more a {
+  margin-right: 12px !important;
+}
+.grid.medium li {
+  background: url(/images/blue-grad.jpg) bottom repeat-x;
+  border: 1px solid #ccc;
+  height: 48px;
+  margin: 0 0 12px 6px;
+  width: 154px;
+}
+.grid.medium li, .grid.medium p {
+  font-size: 12px;
+}
+.grid.medium img {
+  float: left;
+  /*clip: rect(36px, 36px, 36px, 36px);*/
+  margin: 0px 6px 6px 0;
+}
+.grid.medium a {
+  display: block;
+  height: 100%;
+  margin: 6px;
+}
+
+
+/* Profile */
+
+.profile .toolbox {
+  clear: left;
+  float: left;
+  margin: 0 12px 12px 0;
+  width: 240px;
+}
+.profile img.photo {
+  margin-bottom: 12px;
+}
+.profile .note {
+  margin-left: 252px;
+}
+.profile .toolbox ul {
+  width: 238px;
+}
+.profile ul.tools li {
+  background: none;
+  font-size: 12px;
+  list-style-type: disc;
+  margin: 6px 6px 6px 2em;
+  padding: 0;
+}
+
+/* Messages */
+
+#message-nav {
+  background: url(/images/silver-grad.jpg) bottom repeat-x;
+  border-bottom: 1px solid #ccc;
+  float: left;
+  height: 24px;
+  margin-top: -24px;
+  position: relative;
+  width: 100%;
+}
+#message-nav li {
+  background: none;
+  float: left;
+  font-size: 12px;
+  line-height: 24px;
+  list-style-type: none;
+  margin: 0;
+  text-align: center;
+  padding: 0;
+  width: 78px;
+}
+#message-nav li a:hover {
+  background: url(/images/silver-grad-inv.jpg) bottom repeat-x;
+}
+#message-nav li.compose {
+  background: url(/images/compose-t.png) top no-repeat;
+  float: right;
+  line-height: 10px;
+  margin: 3px 3px 0;
+  width: 154px;
+}
+#message-nav li.compose a, #message-nav li.compose a:hover {
+  background: url(/images/compose-b.png) bottom no-repeat;
+  color: #fff;
+  margin-top: 4px;
+  padding-bottom: 4px;
+}
+#message-nav li a {
+  color: #333;
+  display: block;
+  font-weight: normal;
+  height: 100%;
+}
+.message .tools {
+  margin-right: 6px;
+  text-align: right;
+}
+
+/* Gallery list */
+#gallery_list li {
+  background: url(/images/blue-grad.jpg) bottom repeat-x;
+  border: 1px solid #ccc;
+  height: 80px;
+  margin: 10px 0 12px 0px;
+  width: 300px;
+}
+#gallery_list li div, #gallery_list li p {
+  padding-left: 10px;
+}
+#gallery_list li p {
+  float: left;
+  width: 200px;
+  line-height: 1.6;
+  margin-left: 1em;
+}
+.gallery_title {
+  font-size: 146%;
+  font-weight: bold;
+}
+div.toolbox ul li {
+  font-size: 12px;
+  list-style: disc inside;
+  background: none;
+  padding-left: 0px
+}
+
+div.photo, div.photo-small {
+  padding-top: 10px;
+  text-align: center;
+}
+
+div.gallery-description {
+  font-size: 12px;
+  text-align: justify;
+}
+
+div.photo-small:hover {
+  background-color: #ccccff;
+}
+
+.form_row a {
+  margin-left: 2px;
+  font-size: 80%;
+}
+
+/* Bug fixes */
+form, div, h2, ul, li {zoom: 1;}
+* html .col2 {width: 234px;}
+* html .list li li.reply {
+  display: inline;
+  margin-left: 84px;
+  margin-top: 12px;
+  padding: 12px 0 0 0;
+  width: 398px;
+}
+* html .list.blog li.post {
+  display: inline;
+  width: 440px;
+}
+* html #frmSearch input.txt {
+  width: 130px;
+}
+* html .single-col .col1 {
+  margin: 0 105px;
+  width: 324px;
+}
+
+/* Bill's additions */
+h2 {
+  padding-left: 0px;
+}
+.profile {
+  position: relative;
+}
+.profileEditLink a {
+  font-size: 80%;
+}
+.minifeed, #change_password {
+  margin-top: 20px;
+}
+.minifeed h2 {
+  margin-top: 0px;
+  border-bottom: none;
+}
+h3.subject {
+  vertical-align: top;
+}
+#profile_edit h3 {
+  color: #4A70B1;
+  margin-bottom: 1px;
+}
+#profile_edit form, form#blogpost {
+  border-bottom: none;
+  margin-bottom: auto;
+}
+#tabCol {
+  margin-top: 5px;
+  width: 100%;
+}
+ul.ui-tabs-nav li {
+  background: none;
+  padding-left: 0px;
+}
+.ui-tabs-panel {
+  min-height: 540px;
+  width: 96%;
+  border: 1px solid #4A70B1;
+}
+.comments li div {border-bottom: 1px solid #ccc;}
+.imgHoverMarker {display: inline;}
+.imgHoverMarker img {display: none;}
+#tRecentActivity h2, #tPhotos h2, #tWall h2 {margin-bottom: 10px;}
+#tRecentActivity p.meta {font-variant: small-caps;}
+#tRecentActivity ul li, #tWall ul li, #tWall ul li div {display: block; border-bottom: none;}
+#tWall form, form#admin_preferences, form#admin_forums, form.edit_photo, .col2 form {border-bottom: none;}
+#tGalleries .profile-image {
+  margin-top: 4px;
+}
+#photos ul li {
+    background: url(/images/blue-grad.jpg) bottom repeat-x;
+  margin: 10px 10px 0px 0px;
+    float: left;
+  display: inline;
+  width: 140px;
+  height: 131px;
+  border: 1px solid #ccc;
+  padding: 4px;
+  overflow: hidden;
+}
+#photos ul li img {
+  vertical-align: top;
+}
+#photos form {
+  margin-top: 20px;
+  border-bottom: none;
+}
+.gallPhotoTitle {
+  height: 18px;
+  margin-bottom: 5px;
+}
+.gallPhoto {
+  float: left;
+  width: 80px;
+}
+.gallPhotoMeta {
+  height: 72px;
+  float: left;
+  width: 60px;
+}
+.gpuTitle {
+  font-weight: bold;
+  font-size: 116%;
+  text-align: center;
+  margin: 5px;
+}
+ul.activity {margin-bottom: 0px;}
+img.actioner {
+  vertical-align: text-bottom;
+  padding-left: 5px;
+}
+.contacts.grid li.vcard {
+  margin-right: 10px;
+  line-height: 2em;
+}
+.contacts.grid.medium li.vcard {
+  line-height: 1em;
+}
+ul.people li.vcard p {
+  margin-left: 80px;
+  vertical-align: top;
+}
+.prefItem {
+  clear: both;
+  width: 520px;
+  margin: 15px 0px;
+  border-bottom: 1px dotted #e0e0e0;
+}
+.prefLabel {
+  float: left;
+  font-weight: bold;
+  width: 200px;
+  padding: 10px 0px;
+}
+.prefValue {
+  float: left;
+  margin-left: 10px;
+  width: 300px;
+  padding: 10px 0px;
+}
+.prefAbout {
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+.forum .topic li {
+  border-bottom: 1px solid #ccc;
+  display: block;
+}
+#tBlog .col2, #tWall .col2 {
+  width: 224px;
+  padding: 0px 0px 0px 6px;
+}
+#blogpost .prefLabel {
+  width: 100px;
+}
+#blogpost .prefValue #post_title, #blogpost .prefValue textarea {
+  width: 400px !important; /* width reduced by Bill L */
+}
+#blogpost #post_submit {
+  text-align: right;
+}
+
+.col2 #blogpost #post_submit {
+  text-align: left;
+}
+ul.admin, ul.admin li {list-style-position: inside;}
+ul.admin li {display: list-item; list-style-image: url(/images/icons/switch.gif); border-bottom: none;}
+.person_meta {
+  margin-left: 50px;
+}
+.person_description {
+  clear: both;
+}
+.see_all_link {
+  width: 116px !important;
+  margin: -10px 0px 10px 6px;
+}
+.list .message img.icon {
+  margin-left: -20px;
+}
+.forum .entry_content {
+  clear: both;
+}
+p.welcome span, .powered_by a {
+  font-size: 116%
+}
+hr {
+  color: #FFF5B5;
+}
+form#admin_preferences label {
+  display: inline;
+  float: left;
+  width: 160px;
+}
+#sidebar_body {
+  padding: 4px;
+}
+#sidebar_body ul li {
+  background: none;
+  padding-left: 3px;
+}
+.debug_info pre {width: 670px;}
+
+/* ##################### disabled stuff ###################
+   this stuff is turned off temporarily to get the layouts to
+   work while I determine whether or not to eliminate the
+   html entirely  
+      -Evan
+*/  
+  #sidebar {
+    display: none;  
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    z-index: 2;
+  }    
+
+body {
+  font-family: Helvetica, Arial, Univers, Tahoma, sans-serif;
+  font-size: 1em;
+  line-height:  1.05em;  
+}
+p,
+li, 
+th, 
+td {
+  font-size:  14px;
+  line-height:  1.4em;
+}
+li li, li p {
+  font-size: 100%;
+}
+p, 
+ul, 
+ol, 
+blockquote, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+  display:  block;
+  margin-bottom: 1em;
+}
+h2 {
+  background: url(/images/yellow-grad.jpg) 30px 10px repeat-x;
+  border-bottom: 1px solid #ccc;
+  color: #069;
+  clear: both;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 22px;
+  font-weight: normal;
+  line-height: 1.4em;
+  margin-top: 24px;
+  padding-left: 6px;
+}
+li h2 {font-size: 1em;}
+h2 a, h3 a {
+  font-weight: normal;
+}
+h3 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 20px;
+  font-weight: normal;
+}
+h3.page-title {
+  display: none;
+}
+h4 {
+  border-bottom: 1px solid #eee;
+  clear: both;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.3em;
+  font-weight: normal;
+  line-height: 1.4em;
+  width: 100%;
+}
+h5 {
+  font-size: 12px;
+  font-weight: bold;
+}
+h6 {
+  font-size: 12px;
+  font-weight: bold;
+  font-style: italic;
+}
+ul li {
+  background: url(/images/bullet.png) top left no-repeat;
+  border: 0;
+  margin: 0 0 .5em 0;
+  padding-left: 24px;
+}
+ol li {
+  list-style: decimal;
+  margin-left: 1.5em;
+}
+
+blockquote {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #666666;
+  background: #ececec;
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin: 1em;
+  font-style: italic;
+}
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1em;
+}
+pre {
+  border: 1px solid #ccc;
+  background: #efefef;
+  margin: 1em 0;
+  padding: 1em;
+}
+#content a:link, #content a:visited {
+  font-weight: bold;
+  text-decoration: none;
+}
+a:link, a:visited {
+	color:#006699;
+	font-weight:bold;
+	text-decoration:none;
+}
+/* Specific elements */
+p.welcome {
+  color: #fff;
+  font-size: 12px
+}
+p.welcome a, p.welcome a:visited {
+  color: #fff;
+  text-decoration: underline;
+}
+
+
+#footer p {
+  font-size: 12px;
+  text-align: center;
+}
+
+#content div li.more {
+  background: none;
+  border: none;
+  clear: both;
+  float: left;
+  font-size: 12px;
+  text-align: right;
+  width: 100%;
+}
+#content div li.more a {
+	margin-right: 4px;
+}
+.meta {
+  color: #aaa;
+  font-size: 12px;
+  line-height: 1.8em;
+}
+p.meta, li p.meta {
+  font-size: 12px;
+}
+.label {
+  font-weight: bold;
+}
+body.blog .comments p, body.forum .reply p {
+  font-size: 12px;
+}
+
+/* Have followed links change color (e.g., in forums). */
+a.show-follow:visited {
+  color: #4A70B1;
+  text-decoration: none;
+}
+
+/* Alerts and notifications */
+.success {
+  border: 1px solid #FFCC66;
+  background-color: #FFFFCC;
+  font-size: 12px;
+  padding: 6px;
+}
+.notice {
+  border: 1px solid #FFCC66;
+  background-color: #FFFFCC;
+  font-size: 12px;
+  padding: 6px;
+}
+.error {
+  border: 1px solid #FFCC66;
+  background-color: #FFFFCC;
+  font-size: 12px;
+  padding: 6px;
+}
+
+.error,
+.notice, 
+.success    { padding: .8em; margin-bottom: 1em; border: 2px solid #ddd;
+              margin-top: 1em; }
+
+.error      { background: #FBE3E4; color: #8a1f11; border-color: #FBC2C4; }
+.notice     { background: #FFF6BF; color: #514721; border-color: #FFD324; }
+.success    { background: #E6EFC2; color: #264409; border-color: #C6D880; }
+
+
+.errorExplanation {
+  border: 1px solid #FFCC66;
+  background-color: #FFFFCC;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+.errorExplanation h2 {
+  background: 0;
+  border: 0;
+  font-size: 1.2em;
+  margin-top: 0;
+  padding: 0;
+}
+.pagination {
+  /*border-bottom: 1px solid #eee;*/
+  font-size: 12px;
+  padding-bottom: 12px;
+  /* text-align: center;
+  too much whitespace margin-bottom: 12px; */
+}
+
+
+
+
+
+/* Forms */
+form {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1em;
+  margin-bottom: 2em;
+}
+input, textarea {
+  font-family: Helvetica, Arial, Univers, sans-serif;
+  font-size: 12px;
+  padding: 6px 3px
+}
+textarea {
+  line-height: 1.4em;
+}
+label  {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: .5em;
+}
+input, textarea, select {
+  margin-bottom: 1em;
+}
+input.button, button, input[submit], input[button] {
+  background: #e5e5e5;
+  border: 1px solid #ccc;
+  clear: both;
+  cursor: pointer;
+/*  display: block;*/
+  font-family: Helvetica, Arial, Univers, sans-serif;
+  font-size: 12px;
+  height: 32px;
+  padding: 3px 12px;
+}
+div.button {
+	height: 20px;
+	width: 72px;
+	float: left;
+	margin-right: 20px;
+}
+
+.col1 textarea {
+  width: 478px;
+}
+body.single-col .col1 form input {
+  width: 312px;
+}
+label.checkbox {float: left;margin-right: 12px; width: 120px;}
+body.single-col .col1 form input.checkbox {
+  display: inline;
+  width: auto;
+}
+.form_row {
+  position: relative;
+}
+.form_row.full input {
+  width: 478px;
+}
+
+#frmSearch {
+  border: 0;
+  margin: 0 0 0 0px;
+  padding: 0;
+  position: relative;
+  zoom: 1;
+}
+
+#frmSearch input.txt {
+  display: inline;
+  float: left;
+  margin-right: 6px;
+  vertical-align: middle;
+  width: 138px;
+}
+#frmSearch #btnSearch.button {
+  display: inline;
+  clear: none;
+  margin: 0;
+  width: 72px;
+}
+
+form a.add-recipient {
+  position: absolute;
+  right: 12px;
+  top: 30px;
+}
+
+/* Styles for when the site is (nearly) blank, as for new users. */
+
+h3.blankslate {
+/*  Align with title instead - Bill L
+text-align: center; */
+}
+
+
+/* Tables
+-------------------------------------------------------------- */
+
+table       { margin-bottom: 1.4em; width:100%; }
+th          { font-weight: bold; background: #C3D9FF; }
+th,td       { padding: 4px 10px 4px 5px; }
+tr.even td  { background: #E5ECF9; }
+tfoot       { font-style: italic; }
+caption     { background: #eee; }
+
+/* Misc classes
+-------------------------------------------------------------- */
+
+em { font-style: italic;}
+strong { font-weight: bold; }
+
+.small      { font-size: .8em; margin-bottom: 1.875em; line-height: 1.875em; }
+.large      { font-size: 1.2em; line-height: 2.5em; margin-bottom: 1.25em; }
+.hide       { display: none; }
+
+.quiet      { color: #666; }
+.loud       { color: #000; }
+.highlight  { background:#ff0; }
+.added      { background:#060; color: #fff; }
+.removed    { background:#900; color: #fff; }
+
+/* Bill's additions */
+.clear      {clear: both;}
+.disabled   {color: #c0c0c0;} /* greyed out to emphasize unavailability */
+
+#new_form_subject form {border-bottom: none;}
+#new_form_subject input, #photos .button, #tGalleries .button {width: 138px; vertical-align: top;}
+#new_form_subject .button {width: 72px;}
+.button_container {margin: 10px 0px;}
+.calendar_date_select {
+  color:white;
+  border:#777 1px solid;
+  display:block;
+  width:208px;
+  z-index: 1000;
+}
+/* this is a fun ie6 hack to get drop downs to stay behind the popup window.  This should always be just underneath .calendar_date_select */
+iframe.ie6_blocker {
+  position: absolute;
+  z-index: 999;
+}
+
+.calendar_date_select thead th {
+  font-weight:bold;
+  background-color: #aaa;
+  border-top:1px solid #777;
+  border-bottom:1px solid #777;
+  color: white !important;
+}
+
+.calendar_date_select .cds_buttons {
+  text-align:center;
+  padding:5px 0px;
+  background-color: #555;
+}
+
+.calendar_date_select .cds_footer {
+  background-color: black;
+  padding:3px;
+  font-size:12px;
+  text-align:center;
+}
+
+.calendar_date_select table {
+  margin: 0px;
+  padding: 0px;
+}
+
+
+.calendar_date_select .cds_header {
+  background-color: #ccc;
+  border-bottom: 2px solid #aaa;
+  text-align:center;
+}
+
+.calendar_date_select .cds_header span {
+  font-size:15px;
+  color: black;
+  font-weight: bold;
+}
+
+.calendar_date_select select { font-size:11px;}
+
+.calendar_date_select .cds_header a:hover {
+  color: white;
+}
+.calendar_date_select .cds_header a {
+  width:22px;
+  height:20px;
+  text-decoration: none;
+  font-size:14px;
+  color:black !important;
+}
+
+.calendar_date_select .cds_header a.prev {
+  float:left;
+}
+.calendar_date_select .cds_header a.next {
+  float:right;
+}
+
+.calendar_date_select .cds_header a.close {
+  float:right;
+  display:none;
+}
+
+.calendar_date_select .cds_header select.month {
+  width:90px;
+}
+
+.calendar_date_select .cds_header select.year {
+  width:61px;
+}
+.calendar_date_select .cds_buttons a {
+  color: white;
+  font-size: 9px;
+}
+
+.calendar_date_select td {
+  font-size:12px;
+  width: 24px;
+  height: 21px;
+  text-align:center;
+  vertical-align: middle;
+  background-color: #fff;
+}
+.calendar_date_select td.weekend {
+  background-color: #eee;
+  border-left:1px solid #ddd;
+  border-right:1px solid #ddd;
+}
+
+.calendar_date_select td div {
+  color: #000;
+}
+.calendar_date_select td div.other {
+  color: #ccc;
+}
+.calendar_date_select td.selected div {
+  color:white;
+}
+
+.calendar_date_select tbody td {
+  border-bottom: 1px solid #ddd;
+}
+.calendar_date_select td.selected {
+  background-color:#777;
+}
+
+.calendar_date_select td:hover {
+  background-color:#ccc;
+}
+
+.calendar_date_select td.today {
+  border: 1px dashed #999;
+}
+
+.calendar_date_select td.disabled div {
+  color: #e6e6e6;
+}
+
+.fieldWithErrors .calendar_date_select {
+  border: 2px solid red;
+}.calendar_date_select {
+  color:white;
+  border:#777 1px solid;
+  display:block;
+  width:195px;
+  z-index: 1000;
+}
+/* this is a fun ie6 hack to get drop downs to stay behind the popup window.  This should always be just underneath .calendar_date_select */
+iframe.ie6_blocker {
+  position: absolute;
+  z-index: 999;
+}
+
+.calendar_date_select  thead th {
+  font-weight:bold;
+  background-color: #000;
+  border-top:1px solid #777;
+  border-bottom:2px solid #334;
+  color: white !important;
+}
+
+.calendar_date_select .cds_buttons {
+  text-align:center;
+  padding:5px 0px;
+  background-color: #000055;
+}
+
+.calendar_date_select .cds_footer {
+  background-color: black;
+  padding:3px;
+  font-size:12px;
+  text-align:center;
+}
+
+.calendar_date_select table {
+  margin: 0px;
+  padding: 0px;
+}
+
+
+.calendar_date_select .cds_header {
+  background-color: #ccc;
+  border-bottom: 2px solid #aaa;
+  text-align:center;
+}
+
+.calendar_date_select .cds_header span {
+  font-size:15px;
+  color: black;
+  font-weight: bold;
+}
+
+.calendar_date_select select { font-size:11px;}
+
+.calendar_date_select .cds_header a:hover {
+  color: white;
+}
+.calendar_date_select .cds_header a {
+  width:22px;
+  height:20px;
+  text-decoration: none;
+  font-size:14px;
+  color:black !important;
+}
+
+.calendar_date_select .cds_header a.prev {
+  float:left;
+}
+
+.calendar_date_select .cds_header a.next {
+  float:right;
+}
+
+.calendar_date_select .cds_header a.close {
+  float:right;
+  display:none;
+}
+
+
+.calendar_date_select .cds_header select.month {
+  width:90px;
+}
+
+.calendar_date_select .cds_header select.year {
+  width:61px;
+}
+
+.calendar_date_select .cds_buttons a {
+  color: white;
+  font-size: 9px;
+}
+
+.calendar_date_select td {
+  background-color: #000066;
+  font-size:12px;
+  width: 24px;
+  height: 21px;
+  text-align:center;
+  vertical-align: middle;
+}
+.calendar_date_select td.weekend {
+  background-color: #00005a;
+}
+
+.calendar_date_select td div.other {
+  color: #4C5593;
+}
+
+.calendar_date_select tbody td {
+  border-bottom: 1px solid #000044;
+}
+.calendar_date_select td.selected {
+  background-color:white;
+  color:black;
+}
+
+.calendar_date_select td:hover {
+  background-color:#ccc;
+}
+
+.calendar_date_select td.disabled div {
+  color: #000044;
+}
+.calendar_date_select td.today {
+  border: 1px dashed blue;
+}
+
+.fieldWithErrors .calendar_date_select {
+  border: 2px solid red;
+}.calendar_date_select {
+  border:#777 1px solid;
+  display:block;
+  width:195px;
+  z-index: 1000;
+  background-color:white;
+}
+/* this is a fun ie6 hack to get drop downs to stay behind the popup window.  This should always be just underneath .calendar_date_select */
+iframe.ie6_blocker {
+  position: absolute;
+  z-index: 999;
+}
+
+.calendar_date_select thead th {
+  color: black !important;
+  font-weight:bold;
+}
+
+.calendar_date_select .cds_buttons {
+  text-align:center;
+  padding:5px 0px;
+}
+
+.calendar_date_select .cds_footer {
+  padding:3px;
+  font-size:10px;
+  text-align:center;
+}
+
+.calendar_date_select table {
+  margin: 0px;
+  padding: 0px;
+}
+
+
+.calendar_date_select .cds_header {
+  text-align:center;
+}
+
+.calendar_date_select .cds_header * {
+  border:0px;
+  background-color:white;  
+}
+
+.calendar_date_select .cds_header span {
+  font-size:15px;
+  color: black;
+  font-weight: bold;
+}
+
+.calendar_date_select select { font-size:11px;}
+
+.calendar_date_select .cds_header a:hover {
+  color: white;
+}
+.calendar_date_select .cds_header a {
+  width:22px;
+  height:20px;
+  text-decoration: none;
+  font-size:14px;
+  color:black !important;
+}
+
+.calendar_date_select .cds_header a.prev {
+  float:left;
+}
+.calendar_date_select .cds_header a.next {
+  float:right;
+}
+.calendar_date_select .cds_header a.close {
+  float:right;
+  display:none;
+}
+
+.calendar_date_select .cds_header select.month {
+  width:90px;
+}
+
+.calendar_date_select .cds_header select.year {
+  width:61px;
+}
+
+.calendar_date_select .cds_buttons a {
+  color: black;
+  font-size: 9px;
+}
+.calendar_date_select td {
+  font-size:12px;
+  width: 24px;
+  height: 21px;
+  text-align:center;
+  vertical-align: middle;
+  background-color: #fff;
+}
+.calendar_date_select td.weekend {
+}
+
+.calendar_date_select td div {
+  color: #000;
+}
+.calendar_date_select td div.other {
+  color: #ccc;
+}
+.calendar_date_select td.selected div {
+  color:white;
+}
+
+.calendar_date_select tbody td {
+}
+.calendar_date_select td.selected {
+  background-color:#777;
+}
+
+.calendar_date_select td:hover {
+  background-color:#ccc;
+}
+
+.calendar_date_select td.today {
+  border: 1px dashed #999;
+}
+
+.calendar_date_select td.disabled div {
+  color: #e6e6e6;
+}
+
+.fieldWithErrors .calendar_date_select {
+  border: 2px solid red;
+}.calendar_date_select {
+  color:white;
+  border:#777 1px solid;
+  display:block;
+  width:195px;
+  z-index: 1000;
+}
+/* this is a fun ie6 hack to get drop downs to stay behind the popup window.  This should always be just underneath .calendar_date_select */
+iframe.ie6_blocker {
+  position: absolute;
+  z-index: 999;
+}
+
+.calendar_date_select thead th {
+  font-weight:bold;
+  background-color: #E7E8E8;
+  border-bottom:2px solid black;
+  color: black !important;
+}
+
+.calendar_date_select .cds_buttons {
+  text-align:center;
+  padding:5px 0px;
+  background-color: #5f0000;
+}
+
+.calendar_date_select .cds_footer {
+  background-color: black;
+  padding:3px;
+  text-align:center;
+}
+
+.calendar_date_select table {
+  margin: 0px;
+  padding: 0px;
+}
+
+
+.calendar_date_select .cds_header {
+  background-color: #ccc;
+  border-bottom: 2px solid #aaa;
+  text-align:center;
+}
+
+.calendar_date_select .cds_header span {
+  font-size:15px;
+  color: black;
+  font-weight: bold;
+}
+
+.calendar_date_select select { font-size:11px;}
+
+.calendar_date_select .cds_header a:hover {
+  color: white;
+}
+.calendar_date_select .cds_header a {
+  width:22px;
+  height:20px;
+  text-decoration: none;
+  font-size:14px;
+  color:black !important;
+}
+
+.calendar_date_select .cds_header a.prev {
+  float:left;
+}
+.calendar_date_select .cds_header a.next {
+  float:right;
+}
+
+.calendar_date_select .cds_header a.close {
+  float:right;
+  display:none;
+}
+
+.calendar_date_select .cds_header select.month {
+  width:90px;
+}
+
+.calendar_date_select .cds_header select.year {
+  width:61px;
+}
+
+.calendar_date_select .cds_buttons a {
+  color: white;
+  font-size: 9px;
+}
+
+
+.calendar_date_select td {
+  background-color: #660000;
+  font-size:12px;
+  width: 24px;
+  height: 21px;
+  text-align:center;
+  vertical-align: middle;
+}
+.calendar_date_select td.weekend {
+  background-color: #5a0000;
+}
+
+.calendar_date_select td div {
+  color:#fff;
+}
+.calendar_date_select td div.other {
+  color: #93554C;
+}
+.calendar_date_select td.selected div {
+  color:black;
+}
+
+
+.calendar_date_select tbody td {
+  border-bottom: 1px solid #550000;
+}
+.calendar_date_select tbody td.selected {
+  background-color:white;
+  color:black;
+}
+
+.calendar_date_select tbody td:hover {
+  background-color:#ccc;
+} 
+
+.calendar_date_select tbody td.today {
+  border: 1px dashed red;
+}
+
+.calendar_date_select td.disabled div {
+  color: #440000;
+}
+
+.fieldWithErrors .calendar_date_select {
+  border: 2px solid red;
+}.calendar_date_select {
+  color:white;
+  border:#777 1px solid;
+  display:block;
+  width:195px;
+  z-index: 1000;
+}
+/* this is a fun ie6 hack to get drop downs to stay behind the popup window.  This should always be just underneath .calendar_date_select */
+iframe.ie6_blocker {
+  position: absolute;
+  z-index: 999;
+}
+
+.calendar_date_select thead th {
+  font-weight:bold;
+  background-color: #000;
+  border-top:1px solid #777;
+  border-bottom:2px solid #333;
+  color: white !important;
+}
+
+.calendar_date_select .cds_buttons {
+  text-align:center;
+  padding:5px 0px;
+  background-color: #555;
+}
+
+.calendar_date_select .cds_footer {
+  background-color: black;
+  padding:3px;
+  font-size:12px;
+  text-align:center;
+}
+
+.calendar_date_select table {
+  margin: 0px;
+  padding: 0px;
+}
+
+
+.calendar_date_select .cds_header {
+  background-color: #ccc;
+  border-bottom: 2px solid #aaa;
+  text-align:center;
+}
+
+.calendar_date_select .cds_header span {
+  font-size:15px;
+  color: black;
+  font-weight: bold;
+}
+
+.calendar_date_select select { font-size:11px;}
+
+.calendar_date_select .cds_header a:hover {
+  color: white;
+}
+.calendar_date_select .cds_header a {
+  width:22px;
+  height:20px;
+  text-decoration: none;
+  font-size:14px;
+  color:black !important;
+}
+
+.calendar_date_select .cds_header a.prev {
+  float:left;
+}
+.calendar_date_select .cds_header a.next {
+  float:right;
+}
+.calendar_date_select .cds_header a.close {
+  float:right;
+  display:none;
+}
+
+.calendar_date_select .cds_header select.month {
+  width:90px;
+}
+
+.calendar_date_select .cds_header select.year {
+  width:61px;
+}
+
+.calendar_date_select .cds_buttons a {
+  color: white;
+  font-size: 9px;
+}
+.calendar_date_select td {
+  font-size:12px;
+  width: 24px;
+  height: 21px;
+  text-align:center;
+  vertical-align: middle;
+  background-color: #666666;
+}
+.calendar_date_select td.weekend {
+  background-color: #606060;
+}
+
+.calendar_date_select td div {
+  color: #fff;
+}
+.calendar_date_select td div.other {
+  color: #888;
+}
+.calendar_date_select td.selected div {
+  color:black;
+}
+
+.calendar_date_select tbody td {
+  border-bottom: 1px solid #555;
+}
+.calendar_date_select td.selected {
+  background-color:white;
+}
+
+.calendar_date_select td:hover {
+  background-color:#ccc;
+}
+
+.calendar_date_select td.today {
+  border: 1px dashed #999;
+}
+
+.calendar_date_select td.disabled div {
+  color: #454545;
+}
+
+
+.fieldWithErrors .calendar_date_select {
+  border: 2px solid red;
+}/*
+  A blue based theme, inspired by Blinksale and their ColorBurn widget. http://firewheeldesign.com
+  
+  AUTHOR: Geoffrey Grosenbach http://nubyonrails.com
+  
+  Colors: 
+    Light Blue: bbccff 
+    White: eeddee
+    Turq: 003355
+    Cream: ffffdd
+*/
+
+.calendar {
+  margin: auto;
+}
+
+.monthName th {
+  font-weight: normal;
+  text-align: right;
+  padding-top: 1em;
+  padding-bottom: 0.7em;
+}
+
+.dayName th {
+  font-size: 0.6em;
+  padding-top: 0.6em;
+  padding-bottom: 0.3em;
+  background-color: #303030;
+  color: white;
+}
+
+.otherMonth, .day, .specialDay {
+  padding: 0.1em 0.1em;
+  border-right: 1px solid white;
+
+}
+
+.otherMonth {
+  color: #eeeeee;
+  background-color: white;
+}
+
+.day, .specialDay {
+  text-align: center;
+  border-bottom: 1px dotted #bbbbbb;
+  background-color: #bbccff;
+}
+.specialDay {
+  background-color: #003355;
+  color: white;
+}
+.specialDay a, .specialDay a:visited, .specialDay a:hover {
+  color: red;
+  text-decoration: none;
+  padding: 0.1em;
+}
+.specialDay a:hover {
+  color: white;
+  background-color: black;
+}
+.weekendDay {
+  background-color: #ffffdd;
+}
+.today{
+  background-color: #4682b4;
+}
+
+/*
+  A grey based theme, inspired by Blinksale and their ColorBurn widget. http://firewheeldesign.com
+  
+  AUTHOR: Geoffrey Grosenbach http://nubyonrails.com
+  
+  Colors: 
+    dk: 787888
+    lt: 4f4f5b
+    lter: a8a8a8
+    white: ffffff
+*/
+
+/* TODO */
+
+.calendar {
+  margin: auto;
+  color: white;
+  text-align: center;
+}
+
+thead tr {
+  color: black;
+}
+
+.monthName th {
+  font-weight: normal;
+  text-align: right;
+  padding-top: 1em;
+  padding-bottom: 0.7em;
+  color: black;
+}
+
+.dayName th {
+  font-size: 0.7em;
+  padding-top: 0.6em;
+  padding-bottom: 0.3em;
+  background-color: #303030;
+  color: white;
+  border-bottom: 1px solid white;
+}
+
+.otherMonth, .day, .specialDay {
+  padding: 0.7em 1em;
+  border-right: 1px solid #111111;
+}
+
+.otherMonth {
+  color: #999999;
+  background-color: #4f4f5b;
+}
+
+.day, .specialDay {
+  border-bottom: 1px solid #111111;
+  background-color: #333333;
+}
+.specialDay {
+  background-color: #a8a8a8;
+  color: black;
+}
+.specialDay a, .specialDay a:visited, .specialDay a:hover {
+  color: white;
+  text-decoration: none;
+  padding: 1em;
+}
+.specialDay a:hover {
+  color: white;
+  background-color: black;
+}
+.weekendDay {
+  background-color: #787888;
+}
+.today {
+	background-color: white;
+	color: black;
+}
+
+Colors: 
+  dk: 787888
+  lt: 4f4f5b
+  lter: a8a8a8
+  white: ffffff
+
+/*
+  A red, white, and grey theme.
+  
+  AUTHOR: Geoffrey Grosenbach http://nubyonrails.com
+*/
+
+.calendar {
+  margin: auto;
+}
+
+.monthName th {
+  font-weight: normal;
+  text-align: right;
+  padding-top: 1em;
+  padding-bottom: 0.7em;
+}
+
+.dayName th {
+  font-size: 0.7em;
+  padding-top: 0.6em;
+  padding-bottom: 0.3em;
+  background-color: #303030;
+  color: white;
+}
+
+.otherMonth, .day, .specialDay {
+  padding: 0.7em 1em;
+  border-right: 1px solid white;
+
+}
+
+.otherMonth {
+  color: #eeeeee;
+}
+.weekendDay {
+  background-color: #eeeeee;
+}
+
+.day, .specialDay {
+  text-align: center;
+  border-bottom: 1px dotted #bbbbbb;
+}
+
+.specialDay {
+  background-color: #d10a21;
+  color: white;
+}
+.specialDay a, .specialDay a:visited, .specialDay a:hover {
+  color: white;
+  text-decoration: none;
+  padding: 1em;
+}
+.specialDay a:hover {
+  color: white;
+  background-color: black;
+}
+.today {
+	background-color: #1e90ff;
+	color: white;
+}
