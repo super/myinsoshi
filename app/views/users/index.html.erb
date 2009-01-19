@@ -1,0 +1,55 @@
+<div id="header-wrap">
+  <div id="header">
+    <h1><a href="http://localhost:3001/" title="Homepage"><img alt="Logo-insoshi" src="/images/logo-insoshi.png?1231577647" /></a></h1>
+    <ul id="nav">
+      <li class="n-dashboard"><%= link_to 'Dashboard', home_path %></li>
+      <li class="n-profile"><%= link_to 'Profile',user_path(logged_in_user.id) %></li>
+      <li class="n-messages"><%= link_to 'Messages',user_messages_path(logged_in_user.id) %></li>
+      <li class="n-people active"><%= link_to 'People',users_path %></li>
+      <li class="n-forum"><%= link_to 'Forum',forums_path %></li>
+    </ul> 
+    <p class="welcome">
+    Welcome, <%= logged_in_user.username%>!
+    (<%= link_to '登出', logout_path %>)
+    </p>
+  </div>
+</div>
+<div id="wrap">
+  <div id="content">
+    <div class="col1">
+      <h2>People</h2>
+      <div class="pagination">
+        <%= will_paginate @users, :prev_label => '上一页', :next_label => '下一页'%> 
+      </div>
+      <ul class="list people">
+        <% @users.each do |user|%>
+        <li class="vcard person">
+        <div class="profile-image">
+          <a href="/people/1836-mark" title="Mark"><img alt="Mark" src="/images/default_thumbnail.png?1209332252" title="Mark"></a>
+        </div>
+        <p><%=link_to user.username , user_path(user.id)%></a></p>
+        <p class="note"><span><%= user.description %></span></p>
+        <div class="clear"></div>
+        </li>
+      <% end %>
+      </ul>
+      <div class="pagination"><%= will_paginate @users%></div>
+    </div>
+    <div class="col2">  <h2>Search People</h2>
+      <form action="/searches" id="frmSearch" method="get">
+        <fieldset title="Search Insoshi">
+          <input class="txt" id="txtSearch" maxlength="50" name="q" value="" type="text">
+          <input class="button" id="btnSearch" value="Search" type="submit">
+          <input id="model" name="model" value="Person" type="hidden">
+        </fieldset>
+      </form>
+      <div class="minifeed">
+        <h2>Minifeed</h2>
+        <ul class="list activity small">
+          <li>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def index
+   # @users = User.find(:all, :limit => 6, :order => 'created_at DESC')
+  @users = User.paginate :all, :page => params[:page], :order => 'created_at DESC'
+  end
   def new
     @user = User.new
   end
@@ -15,10 +19,11 @@ class UsersController < ApplicationController
     end
   end
   def show
-    @user = logged_in_user
+    @user = User.find(params[:id])
     if @user.description.blank?
       flash[:error] = "您的个性签名不完善"
     end
+    @blogs = @user.blogs.paginate :all,:page => params[:page], :order => 'created_at DESC'
   end
   def edit
     @user = User.find(params[:id])
@@ -34,12 +39,13 @@ class UsersController < ApplicationController
       render :action => "edit"
     end
     when 'password_edit'
-     if User.change_password(params[:current_password],params[:password])
+     if User.change_password(params[:id],params[:current_password],params[:password])
+       @user.update_attributes(params[:user])
       flash[:notice] = "密码修改成功"
      redirect_to :action => 'show'
      else
       render :action => 'edit'
-     end 
+     end
     end
   end
 end

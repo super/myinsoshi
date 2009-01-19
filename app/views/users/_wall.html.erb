@@ -1,0 +1,19 @@
+<div id="tWall">
+  <h2><%= @user.username%>'s Comment Wall</h2>
+  <a name="wall"></a>
+  <p>HTML and
+  <a href="http://daringfireball.net/projects/markdown/basics" onclick="window.open(this.href);return false;">Markdown</a>
+  formatting supported</p>
+  <% form_for :comment, :url => wallcomment_user_comment_path(logged_in_user.id), :html => { :method => :get }do |f|%>
+    <div style="margin:0;padding:0">
+      <input name="authenticity_token" type="hidden" value="6085ddf81770d717b51752b67923ded84490f252" />
+    </div>
+    <div class="form_row">
+      <%= f.text_area :body, :rows => 10, :cols => 60 %>
+    </div>
+    <div class="form_row">
+      <%= submit_tag '提交', :class => 'button' %>
+    </div>
+  <% end %>
+  <div class="clear"></div>
+</div>

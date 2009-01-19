@@ -1,0 +1,79 @@
+<%= render :partial => 'header'%>
+<div id="wrap">
+  <div id="content">
+    <% if flash[:notice]%>
+      <p class="flash success"><%= flash[:notice]%></p>
+    <% end %>
+    <div class="col1">
+      <h2>
+        Blog for <%= link_to @user.username %>
+      </h2>
+      <ul class="list blog full">
+        <li class="post">
+        <h3>
+          <a name="post_649"></a>
+          <a href="/blogs/1832/posts/649" class="show-follow"><%= @blog.title %></a>
+          <% if @blog.user.username == logged_in_user.username %>
+          <%= link_to image_tag("/images/icons/page_white_edit.png"),
+            edit_blog_path(:id => @blog.id)%>
+          <%= link_to image_tag("/images/icons/page_white_delete.png"),
+            blog_path(:id => @blog.id), :method => :delete , :confirm => "Do you sure to delete?"%>
+          <% end %>
+        </h3>
+        <p><%= @blog.body %></p>
+        <p class="meta">
+        Posted <%= time_ago_in_words(@blog.created_at) %> | 
+        <%= link_to @blog.comments_count %> <%= link_to 'Comments' %>
+        </p>
+        </li>
+      </ul>
+      <h4 id="comments">Comments</h4>
+      <ul class="list comments full">
+        <% @comments.each do |comment|%>
+          <li>
+          <p class="meta">
+          <img alt="Comment" class="icon" src="/images/icons/comment.png">
+          <%= link_to comment.user.username %>  posted a comment
+          <%= time_ago_in_words(comment.created_at)%>:
+          </p>
+          <p><%= comment.body %></p>
+          <div>
+            <% if comment.user.username==logged_in_user.username%>
+              <%= link_to 'Delete', blog_comment_path(:blog_id => @blog.id, :id => comment.id), :method => :delete ,
+                                             :confirm => "Do you sure to delete?" %>
+            <% end %>
+          </div>
+          </li>
+        <%end%>
+      </ul>
+      <h4>Leave a comment</h4>
+      <p>HTML and
+      <a href="http://daringfireball.net/projects/markdown/basics" onclick="window.open(this.href);return false;">Markdown</a>
+      formatting supported</p>
+      <% form_for :comment, :url => blog_comments_path do |f|%>
+        <div class="form_row">
+          <%= f.text_area :body, :rows => 10, :cols => 40 %>
+        </div>
+        <div class="form_row">
+          <%= submit_tag '提交', :class => 'button' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col2"> 
+      <div class="minifeed">
+        <h2>Minifeed</h2>
+        <ul class="list activity small">
+          <li>
+          <div class="profile-image">
+            <a href="/people/1826-jshmemory" title="jshmemory"><img alt="jshmemory" src="/images/default_icon.png?1209332252" title="jshmemory" /></a>
+          </div>
+          <p><a href="/people/1826-jshmemory"><%= logged_in_user.username%></a> made a
+          <a href="/blogs/1832/posts/649">new blog post</a></p>
+          <p class="meta published">
+          less than a minute ago
+          </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>

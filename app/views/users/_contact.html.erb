@@ -1,0 +1,17 @@
+<div id="tContacts">
+  <div class="col1">  <h2><%=@user.username%>'s Contacts</h2>
+    <ul class="grid contacts medium">
+    </ul>
+  </div>
+  <div class="col2">  <h2>Search People</h2>
+    <form action="/searches" id="frmSearch" method="get">
+      <fieldset title="Search Insoshi">
+        <input class="txt" id="txtSearch" maxlength="50" name="q" type="text" value="" />
+        <input class="button" id="btnSearch" type="submit" value="Search" />
+        <input id="model" name="model" type="hidden" value="Person" />
+      </fieldset>
+    </form>
+  </div>
+  <div class="clear"></div>
+  <div class="clear"></div>
+</div>

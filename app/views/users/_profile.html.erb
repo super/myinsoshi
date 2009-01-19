@@ -1,0 +1,32 @@
+<div class="profile vcard" id="tProfile">
+  <h2><span class="fn n"><%= @user.username %></span>'s Profile</h2>
+  <div class="button_container">
+    <% if @user.username == logged_in_user.username %>
+    <%= link_to 'Edit profile', edit_user_path(logged_in_user.id)%> |
+    <a href="/people/5-aaaaaa">Change photo</a>
+    <div class="clear"></div>
+  <% end %>
+  </div>
+  <%if flash[:error] %>
+    <div class="error">
+      <%= flash[:error]%>
+      <%= link_to '点击此处进行更改',edit_user_path(logged_in_user.id) %>
+    </div>
+    <div class="toolbox">
+      <img alt="aaaaaa" class="profile-image photo" src="/images/default.png?1231577647" />
+    </div>
+  <% else %>
+    <div class="toolbox">
+      <img alt="aaaaaa" class="profile-image photo" src="/images/default.png?1231577647" />
+      <% unless @user.username == logged_in_user.username %>
+      <h3><%= @user.username %></h3>
+      <ul class="tools">
+        <li><a href="/people/1828-lucas/connections" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var s = document.createElement('input'); s.setAttribute('type', 'hidden'); s.setAttribute('name', 'authenticity_token'); s.setAttribute('value', 'd3eb4088a7efcec0c9d2ca7fbf15656313928bec'); f.appendChild(s);f.submit();return false;">Request Connection</a></li>
+        <li><%= link_to 'Send Message', sendmessage_path(:user_id => @user) %><%= link_to image_tag("/images/icons/email_add.png") %></li>
+      </ul>
+    <% end %>
+    </div>
+    <p><%= @user.description%></p>
+  <% end %>
+  <div class="clear"></div>
+</div>

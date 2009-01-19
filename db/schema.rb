@@ -9,7 +9,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090112034823) do
+ActiveRecord::Schema.define(:version => 20090114053321) do
+
+  create_table "blogs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "comments_count", :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.text     "body"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "blog_id"
+    t.string   "comment_type", :default => "", :null => false
+  end
+
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "forums", :force => true do |t|
     t.string   "name"
@@ -18,6 +38,22 @@ ActiveRecord::Schema.define(:version => 20090112034823) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "body"
+    t.integer  "recipient_id"
+    t.datetime "user_delete_at"
+    t.datetime "recipient_delete_at"
+    t.datetime "user_read_at"
+    t.datetime "recipient_read_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["recipient_id"], :name => "index_messages_on_recipient_id"
+  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
 
   create_table "posts", :force => true do |t|
     t.integer  "topic_id"

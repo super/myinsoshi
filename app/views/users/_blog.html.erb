@@ -1,0 +1,24 @@
+<div id="tBlog">
+  <h2><%= @user.username%>'s Blog</h2>
+  <p><%= link_to 'New blog post', new_path %>
+  <ul class="list blog full">
+    <% @blogs.each do |blog|%>
+      <li class="post">
+      <h3>
+        <a name="post_1"></a>
+        <%= link_to blog.title, blog_comments_path(:blog_id => blog.id, :user_id => blog.user_id) %>
+        <%= link_to image_tag("/images/icons/page_white_edit.png"),edit_blog_path(:id => blog.id)%>
+        <%= link_to image_tag("/images/icons/page_white_delete.png"),blog_path(:id => blog.id), :method => :delete, :confirm => "Do you sure to delete it?" %>
+      </h3>
+      <p><em><%= blog.body %></em></p>
+      <p class="meta">
+      Posted on <%= time_ago_in_words(blog.created_at) %> |
+      <%= link_to blog.comments_count , blog_comments_path(:blog_id => blog.id)%> 
+      <%= link_to 'Comment', blog_comments_path(:blog_id => blog.id)%>
+      </p>
+      </li>
+    <% end %>
+  </ul>
+  <%= will_paginate @blogs, :prev_label => '上一页',:next_label => '下一页'%>
+  <div class="clear"></div>
+</div>

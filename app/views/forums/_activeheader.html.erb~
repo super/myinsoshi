@@ -1,0 +1,16 @@
+<div id="header-wrap">
+  <div id="header">
+    <h1><a href="http://localhost:3001/" title="Homepage"><img alt="Logo-insoshi" src="/images/logo-insoshi.png?1231577647" /></a></h1>
+    <ul id="nav">
+      <li class="n-dashboard"><%= link_to 'Dashboard', home_path %></li>
+      <li class="n-profile"><%= link_to 'Profile',user_path(logged_in_user.id)%></li>
+      <li class="n-messages"><%= link_to 'Messages',user_messages_path %></li>
+      <li class="n-people"><%= link_to 'People',users_path %></li>
+      <li class="n-forum active"><%= link_to 'Forum', forums_path %></li>
+    </ul> 
+    <p class="welcome">
+    Welcome, <%= logged_in_user.username%>!
+    (<%= link_to '登出', logout_path %>)
+    </p>
+  </div>
+</div>

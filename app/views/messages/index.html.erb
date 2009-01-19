@@ -1,0 +1,32 @@
+<%= render :partial => 'activeheader'%>
+<div id="wrap">
+  <div id="content">
+    <% if flash[:notice] %>
+      <div class="flash notice">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <div class="col1">
+      <h2>Messages</h2>
+      <ul id="message-nav">
+        <li class="active"><a href="/messages">Inbox</a></li>
+        <li><a href="/messages/sent">Sent</a></li>
+        <li><a href="/messages/trash">Trash</a></li>
+        <!-- <li class="compose"><a href="/messages/new">New message</a></li> -->
+      </ul>
+      <% if 0%>
+      <h3 class="blankslate">No messages (yet!)</h3>
+    <% end %>
+    </div>
+    <div class="col2">
+      <h2>Search Messages</h2>
+      <form action="/searches" id="frmSearch" method="get">
+        <fieldset title="Search Insoshi">
+          <input class="txt" id="txtSearch" maxlength="50" name="q" value="" type="text">
+          <input class="button" id="btnSearch" value="Search" type="submit">
+          <input id="model" name="model" value="Message" type="hidden">
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

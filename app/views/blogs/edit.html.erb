@@ -1,0 +1,26 @@
+<%= render :partial => 'header'%>
+<div id="wrap">
+  <div id="content">
+    <h2>Edit post</h2>
+    <% form_for :blog, :url => blog_path, :html => { :method => :put } do |f|%>
+      <div class="form_row">
+        <label for="post_title">Title</label>
+        <%= f.text_field :title%>
+      </div>
+      <script type="text/javascript">
+        //<![CDATA[
+      $(document).ready(function(){$('#post_title').focus()});
+      //]]>
+      </script>
+      <p>HTML and
+      <a href="http://daringfireball.net/projects/markdown/basics" onclick="window.open(this.href);return false;">Markdown</a>
+      formatting supported</p>
+      <div class="form_row">
+        <label for="post_body">Post</label>
+        <%= f.text_area :body, :rows => 20, :cols => 80 %>
+      </div>
+      <div class="form_row">
+        <%= submit_tag '保存', :class => 'button'%>
+      </div>
+    <% end %>
+  </div>

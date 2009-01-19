@@ -1,0 +1,42 @@
+<%= render :partial => 'header'%>
+<div id="wrap">
+  <div id="content">
+    <h2>New message</h2>
+    <div class="col1">
+      <p>HTML and
+      <a href="http://daringfireball.net/projects/markdown/basics" onclick="window.open(this.href);return false;">Markdown</a>
+      formatting supported</p>
+      <% form_for :message, :url => user_messages_path(:recipient_id => @recipient, :user_id => logged_in_user) do |f|%>
+        <div style="margin: 0pt; padding: 0pt;">
+          <input name="authenticity_token" value="d3eb4088a7efcec0c9d2ca7fbf15656313928bec" type="hidden">
+        </div>
+        <div class="form_row full">
+          <label for="recipient">To</label>
+          <%= text_field_tag :recipient, h(@recipient.username) %>
+          <!-- TODO: be able to change recipients with this
+          <a href="#" class="add-recipient">
+            <img alt="Add a recipient" src="/images/icons/add.gif?1209332252" />
+          </a> -->
+        </div>
+        <div class="form_row full">
+          <label for="message_subject">Title</label>
+          <%= f.text_field :title, :class => 'input'%>
+        </div>
+        <div class="form_row">
+          <label for="message_body">Body</label>
+          <%= f.text_area :body, :class => 'input'%>
+          <script type="text/javascript">
+            //<![CDATA[
+          $(document).ready(function(){$('#message_subject').focus()});
+          //]]>
+          </script>
+        </div>
+        <div class="form_row">
+          <%= submit_tag 'Send', :class => 'button' %>
+          <%= submit_tag 'Preview', :class => 'button' %>
+          <a href="http://dogfood.insoshi.com/messages">Cancel</a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,17 @@
 class User < ActiveRecord::Base
+  has_many :blogs, :dependent => :nullify
+  has_many :messages, :dependent => :nullify
+  has_many :posts, :dependent => :nullify
+  has_many :topics, :dependent => :nullify
+  has_many :comments
   validates_length_of :username, :within => 3..16
   validates_presence_of :username, :email
   validates_uniqueness_of :username, :email
   validates_format_of :email,  :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   attr_accessor :password_confirmation
   validates_confirmation_of :password
+  cattr_reader :per_page
+  @@per_page = 1 
   def current_password
     @current_password
   end
@@ -26,10 +33,11 @@ class User < ActiveRecord::Base
       end
     end
   end
-  def self.change_password(current_password,password)
-    if self.hashed_password==encrypt_password(current_password,self.salt)
+  def self.change_password(id,current_password,password)
+    @user = User.find(id)
+    if @user.hashed_password == encrypt_password(current_password,@user.salt)
       if self.password=password
-        @user
+       true 
       else
         errors.add("密码不一致")
       end
